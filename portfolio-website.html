@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anant Aravind Pillai | Portfolio</title>
+    <style>
+        /* Root Variables */
+        :root {
+            --primary: #0070f3;
+            --primary-hover: #005bc2;
+            --secondary: #6b7280;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #e2e8f0;
+            --card-bg: #1e293b;
+            --hover-shadow: 0 10px 25px rgba(0, 112, 243, 0.3);
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-hover);
+        }
+
+        section {
+            padding: 5rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Floating Background Effect */
+        .floating-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-particle {
+            position: absolute;
+            background: rgba(0, 112, 243, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(10%, 15%) rotate(90deg);
+            }
+            50% {
+                transform: translate(5%, 5%) rotate(180deg);
+            }
+            75% {
+                transform: translate(-10%, 10%) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger .line {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background-image: linear-gradient(45deg, var(--primary), #00e1ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* 3D Card Effects */
+        .tilt-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tilt-card:hover {
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(0, 112, 243, 0.2);
+        }
+
+        /* Glow effect on hover */
+        .tilt-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            background: radial-gradient(
+                circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(0, 112, 243, 0.15), 
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .tilt-card:hover::before {
+            opacity: 1;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--dark);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Education Section */
+        .education {
+            background-color: var(--darker);
+        }
+
+        .education h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .education h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            position: relative;
+        }
+
+        .education-card h3 {
+            color: var(--primary);
+        }
+
+        .education-card p.duration {
+            color: var(--secondary);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Achievements Section */
+        .achievements {
+            background-color: var(--dark);
+        }
+
+        .achievements h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .achievements h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            position: relative;
+        }
+
+        .achievement-card h3 {
+            color: var(--primary);
+        }
+
+        .achievement-card p.year {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .contact h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            color: var(--primary);
+            font-size: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: var(--hover-shadow);
+            color: white;
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(15, 23, 42, 0.95);
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .nav-links.active {
+                max-height: 300px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                display: block;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background -->
+    <div class="floating-background" id="floatingBackground"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">AAP</div>
+        <nav>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#education">Education</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Anant Aravind Pillai</h1>
+                <p>Creative thinker, innovator, and dedicated professional with a passion for excellence.</p>
+                <a href="#contact" class="hero-btn">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>Hello! I'm Anant, a passionate professional dedicated to pushing boundaries and creating impact. With a background in technology and design, I specialize in developing innovative solutions that solve real-world problems.</p>
+                    <p>My approach combines analytical thinking with creative problem-solving, allowing me to tackle complex challenges from unique perspectives. I believe in continuous learning and strive to enhance my skills every day.</p>
+                    <p>When I'm not working, you can find me exploring new technologies, contributing to open-source projects, or enjoying outdoor activities that fuel my creativity.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/500/500" alt="Anant Aravind Pillai" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="tilt-card education-card">
+                    <h3>Master of Computer Science</h3>
+                    <p class="duration">2018 - 2020</p>
+                    <p>Stanford University</p>
+                    <p>Specialized in Artificial Intelligence and Machine Learning with a focus on natural language processing.</p>
+                </div>
+                <div class="tilt-card education-card">
+                    <h3>Bachelor of Engineering</h3>
+                    <p class="duration">2014 - 2018</p>
+                    <p>Indian Institute of Technology, Bombay</p>
+                    <p>Graduated with honors in Computer Science and Engineering. Class representative and active member of the coding club.</p>
+                </div>
+                <div class="tilt-card education-card">
+                    <h3>Professional Certification</h3>
+                    <p class="duration">2021</p>
+                    <p>UI/UX Design - Google</p>
+                    <p>Comprehensive certification in user interface and experience design principles, focusing on creating intuitive and accessible digital products.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements" id="achievements">
+        <div class="container">
+            <h2>Achievements</h2>
+            <div class="achievements-grid">
+                <div class="tilt-card achievement-card">
+                    <h3>Innovation Award</h3>
+                    <p class="year">2023</p>
+                    <p>Received the prestigious Innovation Award for developing a revolutionary AI-powered solution that increased process efficiency by 40%.</p>
+                </div>
+                <div class="tilt-card achievement-card">
+                    <h3>Published Research</h3>
+                    <p class="year">2022</p>
+                    <p>First author on a groundbreaking paper published in the International Journal of Computer Science, exploring new approaches to machine learning algorithms.</p>
+                </div>
+                <div class="tilt-card achievement-card">
+                    <h3>Hackathon Champion</h3>
+                    <p class="year">2021</p>
+                    <p>Led a team of developers to victory in the Global Tech Hackathon, creating an innovative solution for sustainable energy management.</p>
+                </div>
+                <div class="tilt-card achievement-card">
+                    <h3>Open Source Contributor</h3>
+                    <p class="year">2020 - Present</p>
+                    <p>Active contributor to multiple open-source projects with over 500 accepted pull requests and recognized as a top maintainer in the community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-form tilt-card">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="social-links">
+                <a href="#" class="social-icon" title="LinkedIn">
+                    <i>in</i>
+                </a>
+                <a href="#" class="social-icon" title="GitHub">
+                    <i>GH</i>
+                </a>
+                <a href="#" class="social-icon" title="Twitter">
+                    <i>X</i>
+                </a>
+                <a href="#" class="social-icon" title="Email">
+                    <i>@</i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Anant Aravind Pillai. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for 3D Effects and Interactions -->
+    <script>
+        // Create floating particles for background
+        function createFloatingBackground() {
+            const background = document.getElementById('floatingBackground');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                
+                // Random size between 50px and 250px
+                const size = Math.random() * 200 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                // Random animation duration between 15s and 30s
+                particle.style.animationDuration = `${Math.random() * 15 + 15}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.15;
+                
+                background.appendChild(particle);
+            }
+        }
+
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                navLinks.classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 3D Tilt Effect for Cards
+        const tiltCards = document.querySelectorAll('.tilt-card');
+
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', tiltEffect);
+            card.addEventListener('mouseleave', resetTilt);
+            card.addEventListener('mousemove', updateGlowPosition);
+        });
+
+        function tiltEffect(e) {
+            const card = this;
+            const cardRect = card.getBoundingClientRect();
+            const cardWidth = cardRect.width;
+            const cardHeight = cardRect.height;
+            
+            const centerX = cardRect.left + cardWidth / 2;
+            const centerY = cardRect.top + cardHeight / 2;
+            
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+            
+            const rotateX = (mouseY / (cardHeight / 2)) * -8;
+            const rotateY = (mouseX / (cardWidth / 2)) * 8;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        }
+
+        function updateGlowPosition(e) {
+            const card = this;
+            const rect = card.getBoundingClientRect();
+            
+            // Calculate mouse position relative to the card (0-100%)
+            const mouseX = ((e.clientX - rect.left) / rect.width) * 100;
+            const mouseY = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            // Update CSS variables for glow position
+            card.style.setProperty('--mouse-x', `${mouseX}%`);
+            card.style.setProperty('--mouse-y', `${mouseY}%`);
+        }
+
+        function resetTilt() {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        }
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '1rem 2rem';
+                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.padding = '1.5rem 2rem';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            }
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formElements = this.elements;
+            let formData = {};
+            
+            for (let i = 0; i < formElements.length; i++) {
+                if (formElements[i].type !== 'submit') {
+                    formData[formElements[i].placeholder] = formElements[i].value;
+                }
+            }
+            
+            // Here you would normally send the form data to a server
+            console.log('Form data:', formData);
+            
+            // Show success message
+            this.innerHTML = '<div style="text-align: center;"><h3 style="color: var(--primary);">Thank You!</h3><p>Your message has been sent successfully. I will get back to you soon.</p></div>';
+        });
+
+        // Animate on scroll
+        window.addEventListener('scroll', revealOnScroll);
+
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('section');
+            const viewportHeight = window.innerHeight;
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < viewportHeight - 100) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize with opacity and transform
+        document.querySelectorAll('section:not(.hero)').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 0.8s ease';
+        });
+
+        // Create floating background on load
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingBackground();
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
